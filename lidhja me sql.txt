@@ -1,0 +1,33 @@
+permi User     SqlConnection Con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\besar\source\repos\Barnatorja\Barnatorja\PharmacyDB.mdf;Integrated Security=True");
+  
+
+
+
+
+if (txtUserName.Text == "" || txtPassword.Text == "")
+            {
+                MessageBox.Show("Ju lutem shenoni Userin dhe Paswordin qe te kyqeni ");
+            }
+            else
+            {
+                Con.Open();
+                SqlDataAdapter sda = new SqlDataAdapter("Select Count(*) from SellerTbl where SellerName='" + txtUserName.Text + "' and SellerPassword= '" + txtPassword.Text + "'", Con);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                if (dt.Rows[0][0].ToString() == "1")
+                {
+                    User = txtUserName.Text;
+                    Shitjet obj = new Shitjet();
+                    obj.Show();
+                    this.Hide();
+                    Con.Close();
+                }
+                else
+                {
+                    MessageBox.Show("E keni shkruar Userin ose Paswordin gabim ");
+                }
+                Con.Close();
+            }
+            }
+
+
